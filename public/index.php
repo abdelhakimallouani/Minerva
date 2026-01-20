@@ -1,21 +1,38 @@
 <?php
+session_start();
+
+use App\Core\Router;
+use App\Controllers\AuthController;
+use App\Controllers\StudentController;
+use App\Controllers\TeacherController;
 
 require_once __DIR__ . '/../app/Core/Database.php';
+require_once __DIR__ . '/../app/Core/Controller.php';
+require_once __DIR__ . '/../app/Core/BaseModel.php';
+require_once __DIR__ . '/../app/Core/Auth.php';
+require_once __DIR__ . '/../app/Core/Router.php';
 
-use App\Core\Database;
+require_once __DIR__ . '/../app/Models/Entities/User.php';
 
-$db = Database::getInstance()->getConnection();
+require_once __DIR__ . '/../app/Models/Repositories/UserRepository.php';
 
-if ($db) {
-    echo "Bonne connexion <br><br>";
+require_once __DIR__ . '/../app/Models/Services/AuthService.php';
+require_once __DIR__ . '/../app/Controllers/AuthController.php';
+require_once __DIR__ . '/../app/Controllers/StudentController.php';
+require_once __DIR__ . '/../app/Controllers/TeacherController.php';
 
-    $stmt = $db->query("SHOW TABLES");
-    $tables = $stmt->fetchAll(PDO::FETCH_NUM);
+$router = new Router();
 
-    if (count($tables) > 0) {
-        echo "Liste des tables :<br>";
-        foreach ($tables as $table) {
-            echo "- " . $table[0] . "<br>";
-        }
-    }
-}
+$router->get('/', [AuthController::class, 'loginForm']);
+$router->get('/login', [AuthController::class, 'loginForm']);
+$router->post('/login', [AuthController::class, 'login']);
+
+$router->get('/register', [AuthController::class, 'registerForm']);
+$router->post('/register', [AuthController::class, 'register']);
+
+$router->get('/logout', [AuthController::class, 'logout']);
+
+$router->get('/student/dashboard', [StudentController::class, 'dashboard']);
+$router->get('/teacher/dashboard', [TeacherController::class, 'dashboard']);
+
+$router->dispatch();
