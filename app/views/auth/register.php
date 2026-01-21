@@ -14,7 +14,7 @@
             <p class="text-gray-500">Créez votre compte enseignant</p>
         </div>
 
-        <form action="/auth/register" method="POST" class="space-y-4">
+        <form action="/register" method="POST" class="space-y-4">
             <div>
                 <label for="name" class="block text-sm font-medium text-gray-700">Nom complet</label>
                 <input type="text" name="name" id="name" placeholder="M. Jean Dupont" required 
