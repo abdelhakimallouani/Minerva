@@ -14,7 +14,7 @@
             <p class="text-gray-500">Accédez à votre espace éducatif</p>
         </div>
 
-        <form action="/auth/login" method="POST" class="space-y-6">
+        <form action="/login" method="POST" class="space-y-6">
             <div>
                 <label for="email" class="block text-sm font-medium text-gray-700">Email professionnel</label>
                 <input type="email" name="email" id="email" required 
