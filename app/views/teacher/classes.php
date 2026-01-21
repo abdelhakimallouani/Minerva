@@ -15,7 +15,7 @@
                 <h1 class="text-3xl font-extrabold text-gray-900">Gestion des Classes</h1>
                 <p class="text-gray-500 font-medium italic">Consultez et gérez vos groupes d'étudiants</p>
             </div>
-            <a href="/teacher/classes/create" class="inline-flex items-center px-6 py-3 border border-transparent text-sm font-bold rounded-xl text-white bg-indigo-600 hover:bg-indigo-700 shadow-lg shadow-indigo-100 transition-all transform hover:scale-105">
+            <a href="/teacher/classes/createclass" class="inline-flex items-center px-6 py-3 border border-transparent text-sm font-bold rounded-xl text-white bg-indigo-600 hover:bg-indigo-700 shadow-lg shadow-indigo-100 transition-all transform hover:scale-105">
                 <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
                 Créer une classe
             </a>
@@ -24,23 +24,23 @@
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             <?php if(!empty($classes)): ?>
                 <?php foreach($classes as $class): ?>
-                <div class="bg-white rounded-3xl border border-gray-100 p-6 shadow-sm hover:shadow-md transition-all group">
+                <div class="bg-white rounded-3xl border border-gray-100 p-6 shadow-sm hover:shadow-md transition-all group cursor-pointer">
                     <div class="flex justify-between items-start mb-4">
                         <div class="bg-indigo-50 p-3 rounded-2xl group-hover:bg-indigo-600 transition-colors">
                             <svg class="w-6 h-6 text-indigo-600 group-hover:text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
                         </div>
-                        <span class="text-xs text-gray-400 font-medium">Créée le <?= date('d/m/Y', strtotime($class['created_at'])) ?></span>
+                        <span class="text-xs text-gray-400 font-medium">Créée le <?= date('d/m/Y', strtotime($class->getCreatedAt())) ?></span>
                     </div>
                     
-                    <h3 class="text-xl font-bold text-gray-900 mb-2"><?= htmlspecialchars($class['name']) ?></h3>
+                    <h3 class="text-xl font-bold text-gray-900 mb-2"><?= htmlspecialchars($class->getName()) ?></h3>
                     
                     <div class="flex items-center gap-2 text-gray-500 text-sm mb-6">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
-                        <span>ID Enseignant: <?= $class['id_teacher'] ?></span>
+                        <span>ID Enseignant: <?= $class->getIdTeacher()?></span>
                     </div>
 
                     <div class="flex gap-3">
-                        <a href="/teacher/classes/view/<?= $class['id_classe'] ?>" class="flex-1 text-center py-2.5 bg-gray-50 text-gray-700 font-bold rounded-xl hover:bg-gray-100 transition">Voir détails</a>
+                        <a href="/teacher/classes/view/<?= $class->getId() ?>" class="flex-1 text-center py-2.5 bg-gray-50 text-gray-700 font-bold rounded-xl hover:bg-gray-100 transition">Voir détails</a>
                         <button class="p-2.5 text-red-500 bg-red-50 rounded-xl hover:bg-red-100 transition">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
                         </button>

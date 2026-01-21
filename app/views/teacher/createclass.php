@@ -17,8 +17,8 @@
             </header>
 
             <div class="bg-white p-10 rounded-3xl border border-gray-100 shadow-xl shadow-gray-200/50">
-                <form action="/teacher/classes/store" method="POST" class="space-y-6">
-                    <input type="hidden" name="id_teacher" value="<?= $_SESSION['user']['id_user'] ?>">
+                <form action="/teacher/classes/createclass" method="POST" class="space-y-6">
+                    <input type="hidden" name="id_teacher" value="<?= $_SESSION['user']['id'] ?>">
 
                     <div>
                         <label for="name" class="block text-sm font-bold text-gray-700 mb-2">Nom de la classe</label>
@@ -37,10 +37,6 @@
                     </div>
                 </form>
             </div>
-
-            <p class="mt-8 text-center text-xs text-gray-400 italic">
-                Note : Vous pourrez assigner des étudiants à cette classe immédiatement après sa création.
-            </p>
         </div>
     </main>
 </body>
