@@ -8,6 +8,14 @@ CREATE TABLE users (
     role ENUM('teacher','student') NOT NULL
 );
 
+ALTER TABLE users
+MODIFY role ENUM('teacher','student') NOT NULL DEFAULT 'teacher';
+
+INSERT INTO users (name, email, password)
+VALUES ('hakim', 'hakim@gmail.com', '123456');
+
+
+
 SELECT * FROM users;
 
 CREATE TABLE classes (

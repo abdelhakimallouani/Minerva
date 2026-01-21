@@ -7,7 +7,7 @@ use App\Controllers\StudentController;
 use App\Controllers\TeacherController;
 
 require_once __DIR__ . '/../app/Core/Database.php';
-require_once __DIR__ . '/../app/Core/Controller.php';
+require_once __DIR__ . '/../app/Core/BaseController.php';
 require_once __DIR__ . '/../app/Core/BaseModel.php';
 require_once __DIR__ . '/../app/Core/Auth.php';
 require_once __DIR__ . '/../app/Core/Router.php';
