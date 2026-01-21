@@ -2,17 +2,16 @@
 
 namespace App\Controllers;
 
-use App\Core\Controller;
+use App\Core\BaseController;
 use App\Models\Services\AuthService;
 
-class AuthController extends Controller
+class AuthController extends BaseController
 {
-    private AuthService $authService;
+    private AuthService $auth;
 
     public function __construct()
     {
-        session_start();
-        $this->authService = new AuthService();
+        $this->auth = new AuthService();
     }
 
     public function loginForm()
@@ -22,13 +21,10 @@ class AuthController extends Controller
 
     public function login()
     {
-        $user = $this->authService->login(
-            $_POST['email'],
-            $_POST['password']
-        );
+        $user = $this->auth->login($_POST['email'], $_POST['password']);
 
         if (!$user) {
-            $this->view('auth/login', ['error' => 'Identifiants invalides']);
+            $this->view('auth/login', ['error' => 'Email ou mot de passe incorrect']);
             return;
         }
 
@@ -45,6 +41,7 @@ class AuthController extends Controller
         }
     }
 
+    // register teacher 
     public function registerForm()
     {
         $this->view('auth/register');
@@ -52,11 +49,10 @@ class AuthController extends Controller
 
     public function register()
     {
-        $this->authService->register(
+        $this->auth->registerTeacher(
             $_POST['name'],
             $_POST['email'],
-            $_POST['password'],
-            $_POST['role']
+            $_POST['password']
         );
 
         $this->redirect('/login');

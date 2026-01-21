@@ -4,7 +4,7 @@ namespace App\Models\Entities;
 
 class User
 {
-    private $id;
+    private  $id;
     private $name;
     private $email;
     private $password;
@@ -24,6 +24,7 @@ class User
         $this->role = $role;
     }
 
+    // Getters
     public function getId()
     {
         return $this->id;
@@ -43,5 +44,11 @@ class User
     public function getRole()
     {
         return $this->role;
+    }
+
+    // Setter
+    public function setId($id)
+    {
+        $this->id = $id;
     }
 }

@@ -14,12 +14,10 @@ class UserRepository extends BaseModel
         $stmt->execute([$email]);
         $data = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        if (!$data) {
-            return null;
-        }
+        if (!$data) return null;
 
         return new User(
-            $data['id'],
+            $data['id_user'],
             $data['name'],
             $data['email'],
             $data['password'],
@@ -27,17 +25,21 @@ class UserRepository extends BaseModel
         );
     }
 
-    public function create(User $user): bool
+    public function create(User $user)
     {
         $stmt = $this->db->prepare(
-            "INSERT INTO users (name, email, password, role) VALUES (?, ?, ?, ?)"
+            "INSERT INTO users (name, email, password, role)
+             VALUES (?, ?, ?, ?)"
         );
 
-        return $stmt->execute([
+        $stmt->execute([
             $user->getName(),
             $user->getEmail(),
             $user->getPassword(),
             $user->getRole()
         ]);
+
+        $user->setId($this->db->lastInsertId());
+        return $user;
     }
 }

@@ -2,10 +2,10 @@
 
 namespace App\Controllers;
 
-use App\Core\Controller;
+use App\Core\BaseController;
 use App\Core\Auth;
 
-class TeacherController extends Controller
+class TeacherController extends BaseController
 {
     public function dashboard()
     {

@@ -2,7 +2,7 @@
 
 namespace App\Core;
 
-class Controller
+class BaseController
 {
 
     protected function view($view, $data = [])
@@ -12,7 +12,7 @@ class Controller
     }
 
     protected function redirect($path){
-        header("Location : $path");
+        header("Location: $path");
 
         exit;
     }

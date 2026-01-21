@@ -7,3 +7,8 @@
     <input type="password" name="password" placeholder="Mot de passe" required>
     <button type="submit">Login</button>
 </form>
+
+<p>
+    <a href="/register">Créer compte enseignant</a>
+</p>
+
