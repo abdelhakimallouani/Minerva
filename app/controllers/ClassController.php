@@ -14,19 +14,6 @@ class ClassController extends BaseController
         $this->classService = new ClassService();
     }
 
-    // afficher classes
-    public function index()
-    {
-        // teacher connect
-        $teacherId = $_SESSION['user']['id'];
-
-        $classes = $this->classService->getTeacherClasses($teacherId);
-
-        $this->view('teacher/classes', [
-            'classes' => $classes
-        ]);
-    }
-
     // ajouter classe
     public function create()
     {
@@ -41,4 +28,29 @@ class ClassController extends BaseController
 
         $this->view('teacher/createclass');
     }
+
+    // afficher classes
+    public function index()
+    {
+        $teacherId = $_SESSION['user']['id'];
+
+        $classes = $this->classService->getTeacherClasses($teacherId);
+
+        $this->view('teacher/classes', [
+            'classes' => $classes
+        ]);
+    }
+
+    public function show($id)
+    {
+        $class = $this->classService->getClassDetails($id);
+        $students = $this->classService->getClassStudents($id);
+
+        $this->view('teacher/showclasse', [
+            'class' => $class,
+            'students' => $students
+        ]);
+    }
+
+    
 }

@@ -44,5 +44,7 @@ $router->get('/teacher/dashboard', [TeacherController::class, 'dashboard']);
 $router->get('/teacher/classes', [ClassController::class, 'index']);
 $router->get('/teacher/classes/createclass', [ClassController::class, 'create']);
 $router->post('/teacher/classes/createclass', [ClassController::class, 'create']);
+$router->get('/teacher/classes/showclasse/{id}', [ClassController::class, 'show']);
+
 
 $router->dispatch();
