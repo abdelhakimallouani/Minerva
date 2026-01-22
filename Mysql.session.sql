@@ -81,6 +81,14 @@ CREATE TABLE attendance (
     FOREIGN KEY (student_id) REFERENCES users(id_user)
 );
 
+CREATE TABLE grades (
+    id_grade INT AUTO_INCREMENT PRIMARY KEY,
+    id_submission INT NOT NULL UNIQUE,
+    grade DECIMAL(5,2) NOT NULL,
+    comment TEXT,
+    graded_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (id_submission) REFERENCES submissions(id_submission)
+);
 
 CREATE TABLE chat_messages (
     id_chat INT AUTO_INCREMENT PRIMARY KEY,
