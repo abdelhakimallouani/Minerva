@@ -26,6 +26,8 @@ CREATE TABLE classes (
     FOREIGN KEY (id_teacher) REFERENCES users(id_user)
 );
 
+SELECT * FROM classes;
+
 
 CREATE TABLE class_students (
     id INT AUTO_INCREMENT PRIMARY KEY,
