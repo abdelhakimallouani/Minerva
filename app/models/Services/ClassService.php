@@ -27,4 +27,14 @@ class ClassService
     {
         return $this->classRepo->findByTeacher($teacherId);
     }
+
+    public function getClassDetails($classId)
+    {
+        return $this->classRepo->findById($classId);
+    }
+
+    public function getClassStudents($classId)
+    {
+        return $this->classRepo->getStudents($classId);
+    }
 }
