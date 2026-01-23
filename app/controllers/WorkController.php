@@ -20,7 +20,7 @@ class WorkController
         $this->service = new WorkService($repository);
     }
 
-    private function checkRole(string $role): void
+    private function checkRole( $role)
     {
         if (!isset($_SESSION['user']) || $_SESSION['user']['role'] !== $role) {
             header('Location: /auth/login');
@@ -28,7 +28,7 @@ class WorkController
         }
     }
 
-    public function index(): void
+    public function index()
     {
         $this->checkRole('teacher');
 
@@ -38,7 +38,7 @@ class WorkController
         include __DIR__ . '/../views/teacher/works.php';
     }
 
-    public function store(): void
+    public function store()
     {
         $this->checkRole('teacher');
 

@@ -50,6 +50,8 @@ $router->post('/teacher/classes/createclass', [ClassController::class, 'create']
 $router->get('/teacher/classes/showclasse/{id}', [ClassController::class, 'show']);
 $router->get('/teacher/classes/{id}/addstudent', [ClassController::class, 'addStudentForm']);
 $router->post('/teacher/classes/{id}/addstudent', [ClassController::class, 'storeStudent']);
+$router->get('/teacher/classes/{id}/work', [ClassController::class, 'works']);
+$router->post('/teacher/classes/{id}/work', [ClassController::class, 'storeWork']);
 
 
 
