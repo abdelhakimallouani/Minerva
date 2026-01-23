@@ -15,6 +15,9 @@ INSERT INTO users (name, email, password)
 VALUES ('hakim', 'hakim@gmail.com', '123456');
 
 
+delete from users where id_user = 10;
+
+
 
 SELECT * FROM users;
 
@@ -36,6 +39,10 @@ CREATE TABLE class_students (
     FOREIGN KEY (id_classe) REFERENCES classes(id_classe),
     FOREIGN KEY (student_id) REFERENCES users(id_user)
 );
+
+SELECT * FROM class_students;
+
+delete from class_students where id = 3;
 
 CREATE TABLE works (
     id_work INT AUTO_INCREMENT PRIMARY KEY,
@@ -80,6 +87,9 @@ CREATE TABLE attendance (
     FOREIGN KEY (id_classe) REFERENCES classes(id_classe),
     FOREIGN KEY (student_id) REFERENCES users(id_user)
 );
+
+SELECT * FROM attendance;
+
 
 CREATE TABLE grades (
     id_grade INT AUTO_INCREMENT PRIMARY KEY,

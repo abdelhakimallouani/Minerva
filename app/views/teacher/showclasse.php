@@ -12,17 +12,11 @@
     <main class="flex-1 p-10 overflow-y-auto">
         <header class="flex flex-col md:flex-row justify-between items-start md:items-center mb-10 gap-4">
             <div>
-                <nav class="flex text-sm text-gray-500 mb-2">
-                    <a href="/teacher/classes" class="hover:text-indigo-600">Classes</a>
-                    <span class="mx-2">/</span>
-                    <span class="font-bold text-gray-900"><?= htmlspecialchars($class->getName()) ?></span>
-                </nav>
                 <h1 class="text-3xl font-extrabold text-gray-900"><?= htmlspecialchars($class->getName()) ?></h1>
-                <p class="text-gray-500 font-medium">Créée le : <?= date('d/m/Y', strtotime($class->getCreatedAt())) ?></p>
             </div>
 
             <div class="flex flex-wrap gap-3">
-                <a href="/teacher/classes/<?= $class->getIdClasse() ?>/add-student" class="inline-flex items-center px-5 py-2.5 bg-white border border-gray-200 text-sm font-bold rounded-xl text-gray-700 hover:bg-gray-50 shadow-sm transition-all">
+                <a href="/teacher/classes/<?= $class->getIdClasse() ?>/addstudent" class="inline-flex items-center px-5 py-2.5 bg-white border border-gray-200 text-sm font-bold rounded-xl text-gray-700 hover:bg-gray-50 shadow-sm transition-all">
                     <svg class="w-4 h-4 mr-2 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"></path></svg>
                     Ajouter étudiant
                 </a>
@@ -66,8 +60,8 @@
                                     </div>
                                 </td>
                                 <td class="px-6 py-4">
-                                    <?php if (isset($student['attendance_status'])): ?>
-                                        <?php if ($student['attendance_status'] === 'present'): ?>
+                                    <?php if (isset($student['status'])): ?>
+                                        <?php if ($student['status'] === 'present'): ?>
                                             <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold bg-green-50 text-green-600 border border-green-100">Présent</span>
                                         <?php else: ?>
                                             <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold bg-red-50 text-red-600 border border-red-100">Absent</span>
