@@ -51,8 +51,7 @@ class ClassController extends BaseController
 
         $this->view('teacher/showclasse', [
             'class' => $class,
-            'students' => $students,
-            'attendance' => $attendance
+            'students' => $students
         ]);
     }
 
