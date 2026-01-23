@@ -51,6 +51,13 @@ class ClassController extends BaseController
             'students' => $students
         ]);
     }
+    public function works($id)
+    {
+        $works = []; 
+
+        require_once __DIR__ . '/../views/teacher/works.php';
+    }
+
 
     
 }
