@@ -4,14 +4,17 @@ namespace App\Controllers;
 
 use App\Core\BaseController;
 use App\Models\Services\ClassService;
+use App\models\Services\StudentService;
 
 class ClassController extends BaseController
 {
-    private $classService;
+    private ClassService $classService;
+    private StudentService $studentService;
 
     public function __construct()
     {
         $this->classService = new ClassService();
+        $this->studentService = new StudentService();
     }
 
     // ajouter classe
@@ -48,9 +51,26 @@ class ClassController extends BaseController
 
         $this->view('teacher/showclasse', [
             'class' => $class,
-            'students' => $students
+            'students' => $students,
+            'attendance' => $attendance
         ]);
     }
 
-    
+    public function addStudentForm($classId)
+    {
+        $this->view('teacher/addstudent', ['classId' => $classId]);
+    }
+
+    public function storeStudent($classId)
+    {
+        $this->studentService->createStudent(
+            $classId,
+            $_POST['name'],
+            $_POST['email'],
+            $_POST['status']
+        );
+
+        $this->redirect("/teacher/classes/$classId");
+        exit;
+    }
 }

@@ -1,1 +1,3 @@
 /config/database.php
+/vendor/
+app/Mail/Mailer.php

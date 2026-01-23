@@ -42,4 +42,20 @@ class UserRepository extends BaseModel
         $user->setId($this->db->lastInsertId());
         return $user;
     }
+
+    public function createstd(User $user)
+    {
+        $stmt = $this->db->prepare(
+            "INSERT INTO users (name, email, password, role) VALUES (:name, :email, :password, :role)"
+        );
+
+        $stmt->execute([
+            'name' => $user->getName(),
+            'email' => $user->getEmail(),
+            'password' => $user->getPassword(),
+            'role' => $user->getRole()
+        ]);
+
+        return $this->db->lastInsertId();
+    }
 }
