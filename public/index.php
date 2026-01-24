@@ -6,6 +6,7 @@ use App\Controllers\AuthController;
 use App\Controllers\StudentController;
 use App\Controllers\TeacherController;
 use App\Controllers\ClassController;
+use App\Controllers\ChatController;
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
@@ -28,6 +29,8 @@ require_once __DIR__ . '/../app/Controllers/AuthController.php';
 require_once __DIR__ . '/../app/Controllers/StudentController.php';
 require_once __DIR__ . '/../app/Controllers/TeacherController.php';
 require_once __DIR__ . '/../app/Controllers/ClassController.php';
+
+
 
 
 $router = new Router();
@@ -53,6 +56,9 @@ $router->post('/teacher/classes/{id}/addstudent', [ClassController::class, 'stor
 $router->get('/teacher/classes/{id}/work', [ClassController::class, 'works']);
 $router->post('/teacher/classes/{id}/work', [ClassController::class, 'storeWork']);
 
+$router->get('/chat/view/{id}', [ChatController::class, 'show']);
+$router->get('/chat/view', [ChatController::class, 'show']);
+$router->post('/chat/send', [ChatController::class, 'send']);
 
 
 $router->dispatch();
