@@ -83,13 +83,7 @@
                     </div>
 
                     <div>
-                        <label class="block text-xs font-bold text-slate-500 uppercase mb-1 ml-1">Classe</label>
-                        <select name="class_id" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 focus:ring-2 focus:ring-indigo-500 outline-none text-sm appearance-none cursor-pointer" required>
-                            <option value="">Choisir...</option>
-                            <?php foreach ($classes as $c): ?>
-                                <option value="<?= $c['id_classe'] ?>"><?= $c['name'] ?></option>
-                            <?php endforeach; ?>
-                        </select>
+
                         <form>
                             <?php foreach($students as $student):?>
                                 <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike">
