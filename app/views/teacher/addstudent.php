@@ -22,7 +22,7 @@
             </header>
 
             <div class="bg-white p-10 rounded-3xl border border-gray-100 shadow-xl shadow-gray-200/50">
-                <form action="/teacher/classes/showclasse" method="POST" class="space-y-6">
+                <form action="/teacher/classes/<?= $classId ?>/addstudent" method="POST" class="space-y-6">
                     <div>
                         <label for="name" class="block text-sm font-bold text-gray-700 mb-2">Nom complet</label>
                         <div class="relative">
