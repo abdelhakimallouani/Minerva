@@ -83,7 +83,7 @@ class ClassController extends BaseController
             $_POST['status']
         );
 
-        $this->redirect("/teacher/classes/$classId");
+        $this->redirect("/teacher/classes/showclasse/$classId");
         exit;
     }
 
