@@ -30,6 +30,8 @@ require_once __DIR__ . '/../app/Controllers/StudentController.php';
 require_once __DIR__ . '/../app/Controllers/TeacherController.php';
 require_once __DIR__ . '/../app/Controllers/ClassController.php';
 
+require_once __DIR__ . '/../app/Mail/Mailer.php';
+
 
 
 
@@ -54,8 +56,9 @@ $router->get('/teacher/classes/showclasse/{id}', [ClassController::class, 'show'
 $router->get('/teacher/classes/{id}/addstudent', [ClassController::class, 'addStudentForm']);
 $router->post('/teacher/classes/{id}/addstudent', [ClassController::class, 'storeStudent']);
 $router->get('/teacher/classes/{id}/work', [ClassController::class, 'works']);
-$router->post('/teacher/classes/{id}/work', [ClassController::class, 'storeWork']);
-
+$router->get('/teacher/works', [ClassController::class, 'works']);
+$router->get('/teacher/addwork', [ClassController::class, 'createWork']);
+$router->post('/teacher/storework', [ClassController::class, 'storeWork']);
 $router->get('/chat/view/{id}', [ChatController::class, 'show']);
 $router->get('/chat/view', [ChatController::class, 'show']);
 $router->post('/chat/send', [ChatController::class, 'send']);

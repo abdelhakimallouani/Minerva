@@ -46,6 +46,8 @@ class ClassController extends BaseController
 
     public function show($id)
     {
+        $_SESSION['current_class_id'] = $id; 
+
         $class = $this->classService->getClassDetails($id);
         $students = $this->classService->getClassStudents($id);
 
@@ -54,17 +56,22 @@ class ClassController extends BaseController
             'students' => $students
         ]);
     }
-    public function works($id)
+    public function works()
     {
-        $works = []; 
+        $classId = $_SESSION['current_class_id'] ?? null;
 
-        require_once __DIR__ . '/../views/teacher/works.php';
+        if (!$classId) {
+            $this->redirect('/teacher/classes');
+            exit;
+        }
+
+        $works = $this->classService->getWorksByClass($classId);
+        $this->view('teacher/works', ['works' => $works]);
     }
-
 
     public function addStudentForm($classId)
     {
-        $this->view('teacher/addstudent', ['classId' => $classId]);
+        $this->view('teacher/addstudent', [$classId]);
     }
 
     public function storeStudent($classId)
@@ -79,4 +86,68 @@ class ClassController extends BaseController
         $this->redirect("/teacher/classes/$classId");
         exit;
     }
+
+
+    public function createWork() {
+
+        $classId = $_SESSION['current_class_id'] ?? null;
+
+        if (!$classId) {
+            $this->redirect('/teacher/classes'); 
+            exit;
+        }
+
+        $students = $this->classService->getClassStudents($classId);
+        require_once __DIR__ . '/../views/teacher/addwork.php';
+    }
+
+    public function storeWork()
+    {
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+            header("Location: /teacher/dashboard");
+            exit;
+        }
+
+        $title = $_POST['title'] ?? '';
+        $description = $_POST['description'] ?? '';
+        $classId = $_POST['class_id'] ?? null;
+        $studentIds = $_POST['student_ids'] ?? [];
+        $teacherId = $_SESSION['user']['id'] ?? null;
+
+        if (!$title || !$classId || !$teacherId) {
+            if (!$classId) {
+                die("Error: Class ID is missing!");
+            }
+           $this->redirect("/teacher/works");
+            exit;
+        }
+
+        $fileName = null;
+
+        if (!empty($_FILES['file']['name']) && $_FILES['file']['error'] === 0) {
+            $uploadDir = __DIR__ . '/../../public/uploads/';
+
+            if (!is_dir($uploadDir)) {
+                mkdir($uploadDir, 0777, true);
+            }
+
+            $fileName = time() . '_' . basename($_FILES['file']['name']);
+            move_uploaded_file($_FILES['file']['tmp_name'], $uploadDir . $fileName);
+        }
+
+        $this->classService->saveWorkWithAssignments(
+            $classId,
+            $teacherId,
+            $title,
+            $description,
+            $fileName,
+            $studentIds
+        );
+
+        $_SESSION['success_msg'] = "Le travail a été ajouté avec succès !";
+        $this->redirect("/teacher/works");
+        exit;
+    }
+
+
 }

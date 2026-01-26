@@ -67,4 +67,48 @@ class ClassRepository extends BaseModel
         $stmt->execute([$classId]);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+
+    public function insertWork($classId, $teacherId, $title, $description, $file) {
+        $sql = "INSERT INTO works (title, description, file_path, id_classe, id_teacher, created_at) 
+                VALUES (?, ?, ?, ?, ?, NOW())";
+        
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute([
+            $title,
+            $description,
+            $file,
+            $classId,
+            $teacherId
+        ]);
+        
+        return $this->db->lastInsertId(); 
+    }
+
+    public function assignWorkToStudent($workId, $studentId) {
+        $sql = "INSERT INTO work_assignments (id_work, student_id) VALUES (?,?)";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute([
+            $workId,
+            $studentId
+        ]);
+    }
+
+    public function findStudentsByClass($classId) {
+        $sql = "SELECT u.id_user as id, u.name 
+                FROM users u 
+                JOIN class_students cs ON u.id_user = cs.student_id 
+                WHERE cs.id_classe = ?";
+        
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute([$classId]);
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    }
+
+    public function findWorksByClass($classId) {
+    $sql = "SELECT * FROM works WHERE id_classe = ? ORDER BY created_at DESC";
+    $stmt = $this->db->prepare($sql);
+    $stmt->execute([$classId]);
+    return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+}
+
 }
