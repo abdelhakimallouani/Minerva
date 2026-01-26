@@ -148,6 +148,4 @@ class ClassController extends BaseController
         $this->redirect("/teacher/works");
         exit;
     }
-
-
 }
