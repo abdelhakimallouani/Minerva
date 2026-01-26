@@ -1,6 +1,6 @@
 <?php
 
-namespace App\models\chat;
+namespace App\models\Entities;
 
 class ChatMessage{
     private $id_chat;

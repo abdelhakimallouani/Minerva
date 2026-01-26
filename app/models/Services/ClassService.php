@@ -33,8 +33,23 @@ class ClassService
         return $this->classRepo->findById($classId);
     }
 
-    public function getClassStudents($classId)
-    {
-        return $this->classRepo->getStudents($classId);
+    public function getClassStudents($classId) {
+        return $this->classRepo->findStudentsByClass($classId);
+    }
+
+    public function saveWorkWithAssignments($classId, $teacherId, $title, $description, $file, $studentIds) {
+       
+        $workId = $this->classRepo->insertWork($classId, $teacherId, $title, $description, $file);
+
+        if ($workId && !empty($studentIds)) {
+            foreach ($studentIds as $studentId) {
+                $this->classRepo->assignWorkToStudent($workId, $studentId);
+            }
+        }
+        return $workId;
+    }
+    public function getWorksByClass($classId) {
+        return $this->classRepo->findStudentsByClass($classId);
     }
 }
+

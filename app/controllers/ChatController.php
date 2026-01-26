@@ -1,32 +1,43 @@
 <?php
+namespace App\Controllers;
 
-namespace App\controllers\chat;
+use App\models\Services\ChatService;
+use App\models\Repositories\ChatRepository;
+use App\Core\Database;
 
-use App\models\Services\chat\ChatService;
-
-class ChatController{
+class ChatController {
     private $chatService;
 
-    public function __construct(ChatService $chatService) {
-        $this->chatService = $chatService;
+    public function __construct() {
+        $db = Database::getInstance()->getConnection();
+        $repo = new \App\Models\Repositories\ChatRepository($db);
+        $this->chatService = new ChatService($repo);
     }
 
-    public function send(){
+    public function send() { 
         $messageText = $_POST['message'] ?? '';
+        $userId = $_SESSION['user']['id'] ?? $_SESSION['user_id'] ?? null; 
         $classId = $_POST['id_classe'] ?? null;
 
-        $userId = $_SESSION['user_id'];
+        if (!$classId) {
+        die("Erreur: ID de classe manquant.");
+        }
 
-        try{
+        try {
             $this->chatService->sendMessage($classId, $userId, $messageText);
-            header("Location: /chat/view?id_classe=" . $classId);
+
+            header("Location: /chat/view/" . $classId);
             exit();
-        }catch(\Exception $e){
+        } catch (\Exception $e) {
             $_SESSION['error'] = $e->getMessage();
-            header("Location: /chat/view?id_classe=" . $classId);
+            header("Location: /chat/view/" . $classId);
             exit();
         }
     }
-}
 
-?>
+    public function show($id = null) {
+        $classId = $id ?? $_SESSION['class_id'] ?? 1;
+        $messages = $this->chatService->getMessagesForClass($classId);
+        require_once __DIR__ . '/../views/chat/view.php';
+    }
+}

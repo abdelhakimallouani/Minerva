@@ -9,10 +9,20 @@
 </head>
 <body class="bg-slate-100 h-screen flex flex-col">
 
-    <header class="bg-indigo-600 text-white p-4 shadow-lg flex justify-between items-center">
+<header class="bg-indigo-600 text-white p-4 shadow-lg flex justify-between items-center">
+    <div class="flex items-center gap-4">
+        <a href="teacher/dashboard" class="hover:bg-indigo-500 p-2 rounded-full transition-colors" title="Retour au tableau de bord">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+            </svg>
+        </a>
         <h1 class="text-lg font-semibold tracking-wide">Espace Classe #<?= htmlspecialchars($classId) ?></h1>
+    </div>
+    
+    <div class="flex items-center gap-3">
         <span class="text-xs bg-indigo-500 px-2 py-1 rounded">En direct</span>
-    </header>
+    </div>
+</header>
 
     <main class="flex-1 overflow-y-auto p-4 space-y-4">
         
@@ -21,8 +31,7 @@
         <?php else: ?>
             <?php foreach ($messages as $msg): ?>
                 <?php 
-                    // Vérification si le message vient de l'utilisateur connecté
-                    $isMe = ($msg->getIdUser() == $_SESSION['user_id']); 
+                    $isMe = ($msg->getIdUser() == ($_SESSION['user']['id'] ?? 0)); 
                 ?>
                 
                 <div class="flex <?= $isMe ? 'justify-end' : 'justify-start'; ?>">
@@ -76,6 +85,12 @@
             <p class="text-red-500 text-xs mt-2 text-center font-medium"><?= $_SESSION['error']; unset($_SESSION['error']); ?></p>
         <?php endif; ?>
     </footer>
+    <script>
+        window.onload = function() {
+            const main = document.querySelector('main');
+            main.scrollTop = main.scrollHeight;
+        };
+    </script>
 
 </body>
 </html>

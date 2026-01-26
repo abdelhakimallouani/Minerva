@@ -1,9 +1,9 @@
 <?php
 
-namespace App\models\Services\chat;
+namespace App\models\Services;
 
-use App\repositories\chat\ChatRepository;
-use App\models\chat\ChatMessage;
+use App\models\repositories\ChatRepository;
+use App\models\Entities\ChatMessage;
 
 class ChatService{
     private $ChatRepository;

@@ -1,9 +1,9 @@
 <?php
 
-namespace App\repositories\chat;
+namespace App\models\Repositories;
 
 use App\Core\Database;
-use App\models\chat\ChatMessage;
+use App\models\Entities\ChatMessage;
 use PDO;
 
 class ChatRepository{
