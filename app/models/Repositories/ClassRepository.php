@@ -94,7 +94,7 @@ class ClassRepository extends BaseModel
     }
 
     public function findStudentsByClass($classId) {
-        $sql = "SELECT u.id_user as id, u.name 
+        $sql = "SELECT u.id_user as id, u.name, u.email
                 FROM users u 
                 JOIN class_students cs ON u.id_user = cs.student_id 
                 WHERE cs.id_classe = ?";
